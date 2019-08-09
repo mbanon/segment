@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -85,6 +86,7 @@ public class Segment {
 	public static void main(String[] args) {
 		try {
 			Segment main = new Segment();
+      
 			main.run(args);
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
@@ -102,7 +104,8 @@ public class Segment {
 		CommandLine commandLine = null;
 
 		try {
-
+      
+      
 			commandLine = parser.parse(options, args);
 
 			if (commandLine.hasOption('h')) {
@@ -111,6 +114,8 @@ public class Segment {
 				test();
 			} else if (commandLine.hasOption('t')) {
 				transform(commandLine);
+      }else if (commandLine.hasOption('c')){
+        sentenceSegment(commandLine);
 			} else {
 				segment(commandLine);
 			}
@@ -145,6 +150,8 @@ public class Segment {
 		options.addOption(null, "generate-text", true, "Generate random input with given length in KB.");
 		options.addOption(null, "generate-srx", true, "Generate random segmentation rules with given rule count and rule length separated by a comma.");
 		options.addOption("h", "help", false, "Print this help.");
+    options.addOption("c", "custom", true, "Custom sentence segmetner");
+    
 		return options;
 	}
 
@@ -599,9 +606,10 @@ public class Segment {
 		}
 
 		long start = System.currentTimeMillis();
-
+    
 		while (textIterator.hasNext()) {
 			String segment = textIterator.next();
+      System.out.println("Segment: " + segment);
 			writer.write(beginSegment);
 			writer.write(segment);
 			writer.write(endSegment);
