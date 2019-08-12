@@ -142,8 +142,9 @@ public class Segment {
     
     try {
       SrxDocument document = createSrxDocument(commandLine, false);
-      while (true){
-        String sent = br.readLine();
+      String sent = null;
+      while ((sent = br.readLine()) != null){
+        //String sent = br.readLine();
         if (!"".equals(sent)) {
           this.text = sent;
           ArrayList<String> segments = doSentenceSegment(commandLine, document, reader);
