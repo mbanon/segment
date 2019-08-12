@@ -1,5 +1,6 @@
 package net.loomchild.segment.ui.console;
 
+import java.io.BufferedReader;
 import static net.loomchild.segment.util.Util.getFileInputStream;
 import static net.loomchild.segment.util.Util.getFileOutputStream;
 import static net.loomchild.segment.util.Util.getReader;
@@ -9,14 +10,18 @@ import static net.loomchild.segment.util.Util.readAll;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import net.loomchild.segment.srx.io.Srx2Parser;
 import net.loomchild.segment.srx.io.Srx2SaxParser;
@@ -84,6 +89,9 @@ public class Segment {
 	private boolean stdoutWriter;
 
 	public static void main(String[] args) {
+  args = new String[1];
+  args[0] = "-c";
+    
 		try {
 			Segment main = new Segment();
       
@@ -104,8 +112,6 @@ public class Segment {
 		CommandLine commandLine = null;
 
 		try {
-      
-      
 			commandLine = parser.parse(options, args);
 
 			if (commandLine.hasOption('h')) {
@@ -128,6 +134,39 @@ public class Segment {
 
 	}
 
+  private void sentenceSegment(CommandLine commandLine) {
+    Reader reader = null;
+    //reader = createStandardInputReader();
+    InputStreamReader isr = new InputStreamReader(System.in);   
+    BufferedReader br = new BufferedReader(isr);
+    
+    try {
+      SrxDocument document = createSrxDocument(commandLine, false);
+      while (true){
+        String sent = br.readLine();
+        if (!"".equals(sent)) {
+          this.text = sent;
+          ArrayList<String> segments = doSentenceSegment(commandLine, document, reader);
+          System.out.println(segments.toString());          
+        }
+      }
+    }
+    catch (IOException ex) {
+      Logger.getLogger(Segment.class.getName()).log(Level.SEVERE, null, ex);
+    }  
+
+  }
+
+  private ArrayList doSentenceSegment(CommandLine commandLine, SrxDocument document, Reader reader) throws IOException{
+    TextIterator textIterator = createTextIterator(commandLine, document, reader, false);
+    ArrayList<String> segments = new ArrayList<String>();
+    while (textIterator.hasNext()) {
+      String segment = textIterator.next();
+      segments.add(segment);
+    }
+    return segments;
+  }
+  
 	private Options createOptions() {
 		Options options = new Options();
 		options.addOption("s", "srx", true, "SRX file.");
@@ -150,7 +189,7 @@ public class Segment {
 		options.addOption(null, "generate-text", true, "Generate random input with given length in KB.");
 		options.addOption(null, "generate-srx", true, "Generate random segmentation rules with given rule count and rule length separated by a comma.");
 		options.addOption("h", "help", false, "Print this help.");
-    options.addOption("c", "custom", true, "Custom sentence segmetner");
+    options.addOption("c", "custom", false, "Custom sentence segmenter");
     
 		return options;
 	}
