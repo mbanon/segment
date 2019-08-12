@@ -1,5 +1,6 @@
 package net.loomchild.segment.ui.console;
 
+import com.google.gson.Gson;
 import java.io.BufferedReader;
 import static net.loomchild.segment.util.Util.getFileInputStream;
 import static net.loomchild.segment.util.Util.getFileOutputStream;
@@ -16,7 +17,6 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -52,6 +52,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.internal.runners.TextListener;
 import org.junit.runner.JUnitCore;
+
+
 
 /**
  * Text user interface to splitter.
@@ -148,7 +150,8 @@ public class Segment {
         if (!"".equals(sent)) {
           this.text = sent;
           ArrayList<String> segments = doSentenceSegment(commandLine, document, reader);
-          System.out.println(segments.toString());          
+          String segments_json = new Gson().toJson(segments);
+          System.out.println(segments_json);          
         }
       }
     }
