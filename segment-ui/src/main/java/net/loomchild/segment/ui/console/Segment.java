@@ -166,7 +166,10 @@ public class Segment {
     ArrayList<String> segments = new ArrayList<String>();
     while (textIterator.hasNext()) {
       String segment = textIterator.next();
-      segments.add(segment);
+      segment = segment.trim();
+      if (!segment.equals("")){
+        segments.add(segment);
+      }
     }
     return segments;
   }
