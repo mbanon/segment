@@ -91,8 +91,7 @@ public class Segment {
 	private boolean stdoutWriter;
 
 	public static void main(String[] args) {
-  args = new String[1];
-  args[0] = "-c";
+
     
 		try {
 			Segment main = new Segment();
@@ -655,9 +654,8 @@ public class Segment {
     
 		while (textIterator.hasNext()) {
 			String segment = textIterator.next();
-      System.out.println("Segment: " + segment);
 			writer.write(beginSegment);
-			writer.write(segment);
+			writer.write(segment.trim());
 			writer.write(endSegment);
 		}
 
