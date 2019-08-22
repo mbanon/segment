@@ -3,6 +3,7 @@
 ## Introduction
 
 Segment program is used to split text into segments, for example sentences.
+
 Splitting rules are read from SRX file, which is standard format for this task. 
 
 This fork provides a custom version of [loomchild/segment](https://github.com/loomchild/segment), enhanced to be easily wrapped and called from a Python program (for example, [Bifixer](http://github.com/bitextor/bifixer)). For this purpose, a new option (`-c`) has been added. This allows to load the segmenter in memory, ready to be invoked one-line-at-a-time each time it's needed. See below for an example of usage from Python.
@@ -10,6 +11,7 @@ This fork provides a custom version of [loomchild/segment](https://github.com/lo
 ## Requirements
 
 To run the project Java Runtime Environment (JRE) 1.8 is required. 
+
 Program should run on any operating system supported by Java. 
 
 ## Installation
@@ -58,6 +60,7 @@ Some SRX files are provided in the `srx` folder:
 * NonAggressive.srx : segments by .;:!? (that is, all punctuation marks except comma)
 
 If the parameter `-s` is not used, a default SRX file will be used.
+
 Don't hesitate to build your own SRX files! Standard SRX 2.0 specs can be found [here](https://www.gala-global.org/srx-20-april-7-2008). 
 
 ## Benchmarks
