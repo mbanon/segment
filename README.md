@@ -86,9 +86,9 @@ The `segmenteval.py` script can be downloaded from [here](https://gist.github.co
 
 ## Python wrapping example
 
-Visit [Bifixer] to find a super simple example of using the segmenter from a Python3 program, by using [ToolWrapper](https://pypi.org/project/toolwrapper/).
+Visit [this branch](https://github.com/bitextor/bifixer/tree/segmenter-tests)(http://github.com/bitextor/bifixer) of [Bifixer](http://github.com/bitextor/bifixer) to find a super simple example of a Python3 program that reads a file line-by-line, performs some operations on each line, and then calls the Java segmenter for each line, by using [ToolWrapper](https://pypi.org/project/toolwrapper/).
   * [Implementation of the segmenter class](https://github.com/bitextor/bifixer/blob/segmenter-tests/bifixer/segmenter.py)
-  * [Build segmenter object](https://github.com/bitextor/bifixer/blob/segmenter-tests/bifixer/bifixer.py#L114)
+  * [Load segmenter object](https://github.com/bitextor/bifixer/blob/segmenter-tests/bifixer/bifixer.py#L114)
 
 ## More information
 
