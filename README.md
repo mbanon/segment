@@ -30,10 +30,10 @@ Now compile and install:
 ```bash
 cd segment/segment
 mvn clean install
-cd ../segment/segment-ui
+cd ../segment-ui
 mvn clean install
 cd target
-unzip unzip segment-2.0.2-SNAPSHOT.zip
+unzip segment-2.0.2-SNAPSHOT.zip
 ```
 
 ## Running
